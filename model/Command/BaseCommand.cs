@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using NLog;
 using SchemaZen.Library.Models;
 
 namespace SchemaZen.Library.Command {
 	public abstract class BaseCommand {
-		public string Server { get; set; }
+
+        protected static Logger _logger = LogManager.GetCurrentClassLogger();
+
+        public string Server { get; set; }
 		public string DbName { get; set; }
 		public string ConnectionString { get; set; }
 		public string User { get; set; }
 		public string Pass { get; set; }
 		public string ScriptDir { get; set; }
-		public ILogger Logger { get; set; }
 		public bool Overwrite { get; set; }
 
 		public Database CreateDatabase(IList<string> filteredTypes = null) {

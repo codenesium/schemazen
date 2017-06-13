@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NLog;
 using SchemaZen.Library;
 using SchemaZen.Library.Command;
 using SchemaZen.Library.Models;
@@ -16,7 +17,7 @@ namespace TesterApp
 {
     public partial class Form1 : Form
     {
-        Logger _logger;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         protected string DataTables { get; set; }
         protected string FilterTypes { get; set; }
         protected string DataTablesPattern { get; set; }
@@ -25,7 +26,6 @@ namespace TesterApp
         public Form1()
         {
             InitializeComponent();
-            _logger = new Logger(true);
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
@@ -36,7 +36,6 @@ namespace TesterApp
             {
                 ConnectionString = textBoxConnectionString.Text,
                 ScriptDir = textBoxDestinationDirectory.Text,
-                Logger = _logger,
                 Overwrite = true
             };
 
@@ -62,14 +61,14 @@ namespace TesterApp
             {
                 if (!Database.Dirs.Contains(filterType))
                 {
-                    _logger.Log(TraceLevel.Warning, $"{filterType} is not a valid type.");
+                    _logger.Warn($"{filterType} is not a valid type.");
                     anyInvalidType = true;
                 }
             }
 
             if (anyInvalidType)
             {
-                _logger.Log(TraceLevel.Warning, $"Valid types: {Database.ValidTypes}");
+                _logger.Warn( $"Valid types: {Database.ValidTypes}");
             }
 
             return filteredTypes;
@@ -109,7 +108,6 @@ namespace TesterApp
             {
                 ConnectionString = textBoxConnectionString.Text,
                 ScriptDir = textBoxDestinationDirectory.Text,
-                Logger = _logger,
                 Overwrite = true
             };
             try
@@ -118,18 +116,18 @@ namespace TesterApp
             }
             catch (BatchSqlFileException ex)
             {
-                _logger.Log(TraceLevel.Info, $"{Environment.NewLine}Create completed with the following errors:");
+                _logger.Info( $"{Environment.NewLine}Create completed with the following errors:");
                 foreach (var exception in ex.Exceptions)
                 {
-                    _logger.Log(TraceLevel.Info, $"- {exception.FileName.Replace("/", "\\")} (Line {exception.LineNumber}):");
-                    _logger.Log(TraceLevel.Error, $" {exception.Message}");
+                    _logger.Info( $"- {exception.FileName.Replace("/", "\\")} (Line {exception.LineNumber}):");
+                    _logger.Error( $" {exception.Message}");
                 }
             }
             catch (SqlFileException ex)
             {
-                _logger.Log(TraceLevel.Info, $@"{Environment.NewLine}An unexpected SQL error occurred while executing scripts, and the process wasn't completed.
+                _logger.Info( $@"{Environment.NewLine}An unexpected SQL error occurred while executing scripts, and the process wasn't completed.
 {ex.FileName.Replace("/", "\\")} (Line {ex.LineNumber}):");
-                _logger.Log(TraceLevel.Error, ex.Message);
+                _logger.Error( ex.Message);
             }
             catch (Exception ex)
             {

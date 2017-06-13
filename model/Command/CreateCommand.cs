@@ -1,11 +1,12 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using NLog;
 
 namespace SchemaZen.Library.Command {
 	public class CreateCommand : BaseCommand {
-
-		public void Execute(string databaseFilesPath, bool azureMode) {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        public void Execute(string databaseFilesPath, bool azureMode) {
 			var db = CreateDatabase();
 			if (!Directory.Exists(db.Dir)) {
 				throw new FileNotFoundException($"Snapshot dir {db.Dir} does not exist.");
@@ -16,8 +17,8 @@ namespace SchemaZen.Library.Command {
 				throw new InvalidOperationException(msg);
 			}
 
-			db.CreateFromDir(Overwrite, azureMode, databaseFilesPath, Logger.Log);
-			Logger.Log(TraceLevel.Info, $"{Environment.NewLine}Database created successfully.");
+			db.CreateFromDir(Overwrite, azureMode, databaseFilesPath);
+			_logger.Info( $"{Environment.NewLine}Database created successfully.");
 		}
 	}
 }

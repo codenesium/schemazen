@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using ManyConsole;
+using NLog;
 using SchemaZen.Library;
 using SchemaZen.Library.Command;
 using SchemaZen.Library.Models;
@@ -35,15 +36,16 @@ namespace SchemaZen.console {
 				o => FilterTypes = o);
 		}
 
-		private Logger _logger;
-		protected string DataTables { get; set; }
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
+        
+        protected string DataTables { get; set; }
 		protected string FilterTypes { get; set; }
 		protected string DataTablesPattern { get; set; }
 		protected string DataTablesExcludePattern { get; set; }
 		protected string TableHint { get; set; }
 
 		public override int Run(string[] args) {
-			_logger = new Logger(Verbose);
 
 			if (!Overwrite && Directory.Exists(ScriptDir)) {
 				if (!ConsoleQuestion.AskYN($"{ScriptDir} already exists - do you want to replace it"))
@@ -57,7 +59,6 @@ namespace SchemaZen.console {
 				ScriptDir = ScriptDir,
 				Server = Server,
 				User = User,
-				Logger = _logger,
 				Overwrite = Overwrite
 			};
 
@@ -78,13 +79,13 @@ namespace SchemaZen.console {
 			var anyInvalidType = false;
 			foreach (var filterType in filteredTypes) {
 				if (!Database.Dirs.Contains(filterType)) {
-					_logger.Log(TraceLevel.Warning, $"{filterType} is not a valid type.");
+					_logger.Warn( $"{filterType} is not a valid type.");
 					anyInvalidType = true;
 				}
 			}
 
 			if (anyInvalidType) {
-				_logger.Log(TraceLevel.Warning, $"Valid types: {Database.ValidTypes}");
+				_logger.Warn( $"Valid types: {Database.ValidTypes}");
 			}
 
 			return filteredTypes;

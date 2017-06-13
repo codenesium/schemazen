@@ -16,9 +16,9 @@ namespace SchemaZen.Library.Command {
 
 			var db = CreateDatabase(filteredTypes);
 
-			Logger.Log(TraceLevel.Verbose, "Loading database schema...");
+			_logger.Trace( "Loading database schema...");
 			db.Load();
-			Logger.Log(TraceLevel.Verbose, "Database schema loaded.");
+			_logger.Trace( "Database schema loaded.");
 
 			foreach (var nameAndSchema in namesAndSchemas) {
 				AddDataTable(db, nameAndSchema.Key, nameAndSchema.Value);
@@ -31,22 +31,22 @@ namespace SchemaZen.Library.Command {
 				}
 			}
 
-			db.ScriptToDir(tableHint, Logger.Log);
+			db.ScriptToDir(tableHint);
 
-			Logger.Log(TraceLevel.Info, $"{Environment.NewLine}Snapshot successfully created at {db.Dir}");
+			_logger.Info( $"{Environment.NewLine}Snapshot successfully created at {db.Dir}");
 			var routinesWithWarnings = db.Routines.Select(r => new {
 				Routine = r,
 				Warnings = r.Warnings().ToList()
 			}).Where(r => r.Warnings.Any()).ToList();
 			if (routinesWithWarnings.Any()) {
-				Logger.Log(TraceLevel.Info, "With the following warnings:");
+				_logger.Info( "With the following warnings:");
 				foreach (
 					var warning in
 						routinesWithWarnings.SelectMany(
 							r =>
 								r.Warnings.Select(
 									w => $"- {r.Routine.RoutineType} [{r.Routine.Owner}].[{r.Routine.Name}]: {w}"))) {
-					Logger.Log(TraceLevel.Warning, warning);
+					_logger.Warn( warning);
 				}
 			}
 		}
