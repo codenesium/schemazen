@@ -13,6 +13,7 @@ namespace SchemaZen.Library {
 				cn.Open();
 				using (var cm = cn.CreateCommand()) {
 					cm.CommandText = sql;
+                    cm.CommandTimeout = 90;
 					cm.ExecuteNonQuery();
 				}
 			}
@@ -27,7 +28,7 @@ namespace SchemaZen.Library {
 						if (EchoSql) Console.WriteLine(script);
 						cm.CommandText = script;
 						try {
-							cm.ExecuteNonQuery();
+                             cm.ExecuteNonQuery();
 						} catch (SqlException ex) {
 							throw new SqlBatchException(ex, prevLines);
 						}
@@ -55,19 +56,27 @@ namespace SchemaZen.Library {
 			}
 		}
 
-		public static void CreateDb(string connection, string databaseFilesPath = null) {
+        public static void CreateDb(string connection, bool azureMode = false, string databaseFilesPath = null) {
 			var cnBuilder = new SqlConnectionStringBuilder(connection);
 			var dbName = cnBuilder.InitialCatalog;
 			cnBuilder.InitialCatalog = "master";
 			var files = string.Empty;
 			if (databaseFilesPath != null) {
 				Directory.CreateDirectory(databaseFilesPath);
-				files = $@"ON 
-(NAME = '{dbName}',
-    FILENAME = '{databaseFilesPath}\{dbName + Guid.NewGuid()}.mdf')
-LOG ON
-(NAME = '{dbName}_log',
-    FILENAME =  '{databaseFilesPath}\{dbName + Guid.NewGuid()}.ldf')";
+                if (azureMode)
+                {
+                    // azure does not support specifying the file names
+                    files = string.Empty;
+                }
+                else
+                {
+                    files = $@"ON 
+                            (NAME = '{dbName}',
+                                FILENAME = '{databaseFilesPath}\{dbName + Guid.NewGuid()}.mdf')
+                            LOG ON
+                            (NAME = '{dbName}_log',
+                                FILENAME =  '{databaseFilesPath}\{dbName + Guid.NewGuid()}.ldf')";
+                }
 			}
 			ExecSql(cnBuilder.ToString(), "CREATE DATABASE [" + dbName + "] " + files);
 		}

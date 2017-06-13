@@ -1384,7 +1384,7 @@ where name = @dbname
 			log(TraceLevel.Info, "Data imported successfully.");
 		}
 
-		public void CreateFromDir(bool overwrite, string databaseFilesPath = null, Action<TraceLevel, string> log = null) {
+		public void CreateFromDir(bool overwrite, bool azureMode, string databaseFilesPath = null, Action<TraceLevel, string> log = null) {
 			if (log == null) log = (tl, s) => { };
 
 			if (DBHelper.DbExists(Connection)) {
@@ -1395,12 +1395,14 @@ where name = @dbname
 
 			log(TraceLevel.Info, "Creating database...");
 			//create database
-			DBHelper.CreateDb(Connection, databaseFilesPath);
+			DBHelper.CreateDb(Connection, azureMode, databaseFilesPath);
 
 			//run scripts
-			if (File.Exists(Dir + "/props.sql")) {
+			if (File.Exists(Dir + "/props.sql") && !azureMode) {
+                //azure does not support alter table statments
 				log(TraceLevel.Verbose, "Setting database properties...");
 				try {
+                    //Alter table is not supported in azure
 					DBHelper.ExecBatchSql(Connection, File.ReadAllText(Dir + "/props.sql"));
 				} catch (SqlBatchException ex) {
 					throw new SqlFileException(Dir + "/props.sql", ex);
@@ -1487,7 +1489,7 @@ where name = @dbname
 		private List<string> GetScripts() {
 			var scripts = new List<string>();
 			foreach (
-				var dirPath in _dirs.Where(dir => dir != "foreign_keys").Select(dir => Dir + "/" + dir).Where(Directory.Exists)) {
+				var dirPath in _dirs.Where(dir => dir != "foreign_keys" && dir != "users").Select(dir => Dir + "/" + dir).Where(Directory.Exists)) {
 				scripts.AddRange(Directory.GetFiles(dirPath, "*.sql"));
 			}
 			return scripts;

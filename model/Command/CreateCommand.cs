@@ -5,7 +5,7 @@ using System.IO;
 namespace SchemaZen.Library.Command {
 	public class CreateCommand : BaseCommand {
 
-		public void Execute(string databaseFilesPath) {
+		public void Execute(string databaseFilesPath, bool azureMode) {
 			var db = CreateDatabase();
 			if (!Directory.Exists(db.Dir)) {
 				throw new FileNotFoundException($"Snapshot dir {db.Dir} does not exist.");
@@ -16,7 +16,7 @@ namespace SchemaZen.Library.Command {
 				throw new InvalidOperationException(msg);
 			}
 
-			db.CreateFromDir(Overwrite, databaseFilesPath, Logger.Log);
+			db.CreateFromDir(Overwrite, azureMode, databaseFilesPath, Logger.Log);
 			Logger.Log(TraceLevel.Info, $"{Environment.NewLine}Database created successfully.");
 		}
 	}

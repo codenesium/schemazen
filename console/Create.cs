@@ -28,7 +28,7 @@ namespace SchemaZen.console {
 			};
 
 			try {
-				createCommand.Execute(DatabaseFilesPath);
+				createCommand.Execute(DatabaseFilesPath, false);
 			} catch (BatchSqlFileException ex) {
 				_logger.Log(TraceLevel.Info, $"{Environment.NewLine}Create completed with the following errors:");
 				foreach (var e in ex.Exceptions) {
