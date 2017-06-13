@@ -32,14 +32,16 @@ appendExecutionResponse(response);
 
 Azure mode causes the deploy to behave slightly differently. 
 
-####We don't apply any alter database statements because Azure does not support them
-#### When creating a database we do not specify the file names because Azure doesn't support that
+We don't apply any alter database statements because Azure does not support them
+When creating a database we do not specify the file names because Azure doesn't support that
 
 
 ## Download
 This library is on nuget.
 
+```
 Install-Package Codenesium.SchemaZen.Library
+```
 
 ## Contributing
 I am not accepting pull requests at this time. The original code base does accept pull requests and I encourage you to contribute there. 
