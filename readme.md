@@ -27,11 +27,13 @@ Func<ExecutionResponse> deploySchemaAction = () =>
 var response = await Task.Run(deploySchemaAction);
 appendExecutionResponse(response);
 ```
-Note that deploying a snapshot has an added parameter 'azureMode'
 
-Azure mpde causes the deploy to behave slightly differently. 
-# We don't apply any alter database statements because Azure does not support them
-# When creating a database we do not specify the file names because Azure doesn't support that
+### Note that deploying a snapshot has an added parameter 'azureMode'
+
+Azure mode causes the deploy to behave slightly differently. 
+
+####We don't apply any alter database statements because Azure does not support them
+#### When creating a database we do not specify the file names because Azure doesn't support that
 
 
 ## Download
