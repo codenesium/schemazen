@@ -1489,7 +1489,7 @@ where name = @dbname
 		private List<string> GetScripts() {
 			var scripts = new List<string>();
 			foreach (
-				var dirPath in _dirs.Where(dir => dir != "foreign_keys" && dir != "users").Select(dir => Dir + "/" + dir).Where(Directory.Exists)) {
+				var dirPath in _dirs.Where(dir => dir != "foreign_keys").Select(dir => Dir + "/" + dir).Where(Directory.Exists)) {
 				scripts.AddRange(Directory.GetFiles(dirPath, "*.sql"));
 			}
 			return scripts;

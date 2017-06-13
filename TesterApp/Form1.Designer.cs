@@ -33,11 +33,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonCreateSnapshot = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxDatabaseName = new System.Windows.Forms.TextBox();
             this.buttonDeploySnapshot = new System.Windows.Forms.Button();
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkBoxOverwrite = new System.Windows.Forms.CheckBox();
+            this.checkBoxAzureMode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBoxDestinationDirectory
@@ -77,34 +77,17 @@
             // 
             // buttonCreateSnapshot
             // 
-            this.buttonCreateSnapshot.Location = new System.Drawing.Point(36, 232);
+            this.buttonCreateSnapshot.Location = new System.Drawing.Point(36, 164);
             this.buttonCreateSnapshot.Name = "buttonCreateSnapshot";
             this.buttonCreateSnapshot.Size = new System.Drawing.Size(146, 23);
             this.buttonCreateSnapshot.TabIndex = 4;
             this.buttonCreateSnapshot.Text = "Create Snapshot";
             this.buttonCreateSnapshot.UseVisualStyleBackColor = true;
-            this.buttonCreateSnapshot.Click += new System.EventHandler(this.buttonRun_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 147);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Database Name";
-            // 
-            // textBoxDatabaseName
-            // 
-            this.textBoxDatabaseName.Location = new System.Drawing.Point(36, 163);
-            this.textBoxDatabaseName.Name = "textBoxDatabaseName";
-            this.textBoxDatabaseName.Size = new System.Drawing.Size(241, 20);
-            this.textBoxDatabaseName.TabIndex = 5;
-            this.textBoxDatabaseName.Text = "codenesium_schema";
+            this.buttonCreateSnapshot.Click += new System.EventHandler(this.buttonCreateSnapshot_Click);
             // 
             // buttonDeploySnapshot
             // 
-            this.buttonDeploySnapshot.Location = new System.Drawing.Point(328, 232);
+            this.buttonDeploySnapshot.Location = new System.Drawing.Point(328, 164);
             this.buttonDeploySnapshot.Name = "buttonDeploySnapshot";
             this.buttonDeploySnapshot.Size = new System.Drawing.Size(146, 23);
             this.buttonDeploySnapshot.TabIndex = 7;
@@ -114,7 +97,7 @@
             // 
             // textBoxLog
             // 
-            this.textBoxLog.Location = new System.Drawing.Point(36, 299);
+            this.textBoxLog.Location = new System.Drawing.Point(36, 277);
             this.textBoxLog.Multiline = true;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.Size = new System.Drawing.Size(438, 182);
@@ -123,22 +106,42 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 283);
+            this.label4.Location = new System.Drawing.Point(33, 261);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(25, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Log";
             // 
+            // checkBoxOverwrite
+            // 
+            this.checkBoxOverwrite.AutoSize = true;
+            this.checkBoxOverwrite.Location = new System.Drawing.Point(36, 210);
+            this.checkBoxOverwrite.Name = "checkBoxOverwrite";
+            this.checkBoxOverwrite.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxOverwrite.TabIndex = 10;
+            this.checkBoxOverwrite.Text = "Overwrite";
+            this.checkBoxOverwrite.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAzureMode
+            // 
+            this.checkBoxAzureMode.AutoSize = true;
+            this.checkBoxAzureMode.Location = new System.Drawing.Point(36, 233);
+            this.checkBoxAzureMode.Name = "checkBoxAzureMode";
+            this.checkBoxAzureMode.Size = new System.Drawing.Size(83, 17);
+            this.checkBoxAzureMode.TabIndex = 11;
+            this.checkBoxAzureMode.Text = "Azure Mode";
+            this.checkBoxAzureMode.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 510);
+            this.ClientSize = new System.Drawing.Size(511, 499);
+            this.Controls.Add(this.checkBoxAzureMode);
+            this.Controls.Add(this.checkBoxOverwrite);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.buttonDeploySnapshot);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxDatabaseName);
             this.Controls.Add(this.buttonCreateSnapshot);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -158,11 +161,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonCreateSnapshot;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxDatabaseName;
         private System.Windows.Forms.Button buttonDeploySnapshot;
         private System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBoxOverwrite;
+        private System.Windows.Forms.CheckBox checkBoxAzureMode;
     }
 }
 

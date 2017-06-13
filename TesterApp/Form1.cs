@@ -23,25 +23,27 @@ namespace TesterApp
             InitializeComponent();
         }
 
-        private async void buttonRun_Click(object sender, EventArgs e)
-        {
-            Func<ExecutionResponse> createSchemaAction = () =>
-            {
-                SchemaZenRunner runner = new SchemaZenRunner();
-                return runner.CreateSnapshot(textBoxConnectionString.Text, textBoxDestinationDirectory.Text, true);
-            };
-            var response = await Task.Run(createSchemaAction);
-            appendExecutionResponse(response);
-        }
-
         private async void buttonDeploySnapshot_Click(object sender, EventArgs e)
         {
+            textBoxLog.Text = "Starting Deploy Snapshot";
             Func<ExecutionResponse> deploySchemaAction = () =>
             {
                 SchemaZenRunner runner = new SchemaZenRunner();
-                return runner.DeploySnapshot(textBoxConnectionString.Text, textBoxDestinationDirectory.Text, true, true);
+                return runner.DeploySnapshot(textBoxConnectionString.Text, textBoxDestinationDirectory.Text, checkBoxOverwrite.Checked, checkBoxAzureMode.Checked);
             };
             var response = await Task.Run(deploySchemaAction);
+            appendExecutionResponse(response);
+        }
+
+        private async void buttonCreateSnapshot_Click(object sender, EventArgs e)
+        {
+            textBoxLog.Text = "Starting Create Snapshot";
+            Func<ExecutionResponse> createSchemaAction = () =>
+            {
+                SchemaZenRunner runner = new SchemaZenRunner();
+                return runner.CreateSnapshot(textBoxConnectionString.Text, textBoxDestinationDirectory.Text, checkBoxOverwrite.Checked);
+            };
+            var response = await Task.Run(createSchemaAction);
             appendExecutionResponse(response);
         }
 
