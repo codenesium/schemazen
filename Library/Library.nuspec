@@ -3,9 +3,9 @@
   <metadata>
     <id>Codenesium.SchemaZen.Library</id>
     <version>1.0.0</version>
-    <title>Codenesium specific sql library based on SchemaZen</title>
-    <authors>Seth Reno</authors>
-    <owners>Travis Taylor</owners>
+    <title>Unoffical port of SchemaZen</title>
+    <authors>Codenesium LLC</authors>
+    <owners>Codenesium LLC</owners>
     <licenseUrl>https://github.com/codenesium/schemazen/blob/master/license.txt</licenseUrl>
     <projectUrl>https://github.com/codenesium/schemazen</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,6 +13,6 @@
     <copyright>Copyright 2017</copyright>
   </metadata>
   <files>
-    <file src="bin\Release\*.*" exclude="**\*.pdb" target="lib\net461\"  />
+    <file src="bin\Release\SchemaZen.Library.dll" exclude="**\*.pdb" target="lib\net461\"  />
   </files>
 </package>

@@ -32,8 +32,8 @@ appendExecutionResponse(response);
 
 Azure mode causes the deploy to behave slightly differently. 
 
-We don't apply any alter database statements because Azure does not support them
-When creating a database we do not specify the file names because Azure doesn't support that
+#### We don't apply any alter database statements because Azure does not support them
+#### When creating a database we do not specify the file names because Azure doesn't support that
 
 
 ## Download
