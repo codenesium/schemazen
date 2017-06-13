@@ -82,10 +82,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\model\Library.csproj">
+    <ProjectReference Include="..\Library\Library.csproj">
       <Project>{1283684f-cc5f-4647-bd97-9d833d20110e}</Project>
       <Name>Library</Name>
     </ProjectReference>

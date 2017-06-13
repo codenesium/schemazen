@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Codenesium.SchemaZen.Library</id>
+    <version>1.0.0</version>
+    <title>Codenesium specific sql library based on SchemaZen</title>
+    <authors>Seth Reno</authors>
+    <owners>Travis Taylor</owners>
+    <licenseUrl>https://github.com/codenesium/schemazen/blob/master/license.txt</licenseUrl>
+    <projectUrl>https://github.com/codenesium/schemazen</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Script and create SQL Server objects quickly</description>
+    <copyright>Copyright 2017</copyright>
+  </metadata>
+  <files>
+    <file src="bin\Release\*.*" exclude="**\*.pdb" target="lib\net461\"  />
+  </files>
+</package>
