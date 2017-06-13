@@ -2,15 +2,19 @@
 <package >
   <metadata>
     <id>Codenesium.SchemaZen.Library</id>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <title>Unoffical port of SchemaZen</title>
     <authors>Codenesium LLC</authors>
     <owners>Codenesium LLC</owners>
     <licenseUrl>https://github.com/codenesium/schemazen/blob/master/license.txt</licenseUrl>
     <projectUrl>https://github.com/codenesium/schemazen</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Script and create SQL Server objects quickly</description>
+    <description>Unoffical port of SchemaZen. Script and create SQL Server objects quickly.</description>
     <copyright>Copyright 2017</copyright>
+    <dependencies>
+	   <dependency id="FluentAssertions" version="4.19.2" />
+	   <dependency id="NLog" version="4.4.10" />
+    </dependencies>
   </metadata>
   <files>
     <file src="bin\Release\SchemaZen.Library.dll" exclude="**\*.pdb" target="lib\net461\"  />
