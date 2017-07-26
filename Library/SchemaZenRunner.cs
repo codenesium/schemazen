@@ -39,7 +39,7 @@ namespace SchemaZen.Library
                 {
                     ConnectionString = connectionString,
                     ScriptDir = scriptDir,
-                    Overwrite = azureMode
+                    Overwrite = overwrite,
                 };
 
                 createCommand.Execute(@"c:\tmp\database", overwrite);
