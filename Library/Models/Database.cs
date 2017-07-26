@@ -1384,7 +1384,7 @@ where name = @dbname
 			log(TraceLevel.Info, "Data imported successfully.");
 		}
 
-		public void CreateFromDir(bool overwrite, bool azureMode, string databaseFilesPath = null, Action<TraceLevel, string> log = null) {
+		public void CreateFromDir(bool overwrite, string databaseFilesPath = null, Action<TraceLevel, string> log = null) {
 			if (log == null) log = (tl, s) => { };
 
 			if (DBHelper.DbExists(Connection)) {
@@ -1395,10 +1395,10 @@ where name = @dbname
 
 			log(TraceLevel.Info, "Creating database...");
 			//create database
-			DBHelper.CreateDb(Connection, azureMode, databaseFilesPath);
+			DBHelper.CreateDb(Connection, databaseFilesPath);
 
 			//run scripts
-			if (File.Exists(Dir + "/props.sql") && !azureMode) {
+			if (File.Exists(Dir + "/props.sql")) {
                 //azure does not support alter table statments
 				log(TraceLevel.Verbose, "Setting database properties...");
 				try {

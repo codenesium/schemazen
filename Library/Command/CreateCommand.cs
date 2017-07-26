@@ -6,7 +6,7 @@ using NLog;
 namespace SchemaZen.Library.Command {
 	public class CreateCommand : BaseCommand {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
-        public void Execute(string databaseFilesPath, bool azureMode) {
+        public void Execute(string databaseFilesPath = null) {
 			var db = CreateDatabase();
 			if (!Directory.Exists(db.Dir)) {
 				throw new FileNotFoundException($"Snapshot dir {db.Dir} does not exist.");
@@ -17,7 +17,7 @@ namespace SchemaZen.Library.Command {
 				throw new InvalidOperationException(msg);
 			}
 
-			db.CreateFromDir(Overwrite, azureMode, databaseFilesPath);
+			db.CreateFromDir(Overwrite, databaseFilesPath);
 			_logger.Info( $"{Environment.NewLine}Database created successfully.");
 		}
 	}

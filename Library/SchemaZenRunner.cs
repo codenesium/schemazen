@@ -42,7 +42,7 @@ namespace SchemaZen.Library
                     Overwrite = overwrite,
                 };
 
-                createCommand.Execute(@"c:\tmp\database", overwrite);
+                createCommand.Execute();
                 return new ExecutionResponse(true);
             }
             catch (BatchSqlFileException ex)
