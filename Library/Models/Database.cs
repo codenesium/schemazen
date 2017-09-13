@@ -184,13 +184,13 @@ namespace SchemaZen.Library.Models {
 					LoadColumnComputes(cm);
 					LoadConstraintsAndIndexes(cm);
 					LoadCheckConstraints(cm);
-					LoadForeignKeys(cm);
-					LoadRoutines(cm);
-					LoadXmlSchemas(cm);
-					LoadCLRAssemblies(cm);
-					LoadUsersAndLogins(cm);
-					LoadSynonyms(cm);
-					LoadRoles(cm);
+					//LoadForeignKeys(cm);
+					//LoadRoutines(cm);
+					//LoadXmlSchemas(cm);
+					//LoadCLRAssemblies(cm);
+					//LoadUsersAndLogins(cm);
+					//LoadSynonyms(cm);
+					//LoadRoles(cm);
 				}
 			}
 		}
